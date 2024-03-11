@@ -3,36 +3,36 @@
 CREATE EXTENSION postgis;
 
 --lookups
-create table OT_ZrodloDanych (
+create table ot_zrodlo_danych (
     id serial primary key,
     nazwa text not null
 );
-create table OT_KatIstnienia (
+create table ot_kat_istnienia (
     id serial primary key,
     nazwa text not null
 );
-create table OT_RodzajRzeki (
+create table ot_rodzaj_rzeki (
     id serial primary key,
     nazwa text not null
 );
-create table OT_StatusEksploatacji (
+create table ot_status_eksploatacji (
     id serial primary key,
     nazwa text not null
 );
-create table OT_PrzebiegCieku (
+create table ot_przebieg_cieku (
     id serial primary key,
     nazwa text not null
 );
-create table OT_RodzajRepGeom (
+create table ot_rodzaj_repo (
 	id serial primary key,
 	nazwa text not null
 );
-create table OT_PolozenieCieku (
+create table ot_polozenie_cieku (
 	id serial primary key,
 	nazwa text not null
 );
 
-insert into OT_ZrodloDanych(nazwa) values 
+insert into ot_zrodlo_danych(nazwa) values 
 ('EGiB'),
 ('GESUT'),
 ('PRG'),
@@ -44,23 +44,23 @@ insert into OT_ZrodloDanych(nazwa) values
 ('centralny rejestr form ochrony przyrody'),
 ('pomiar terenowy'),
 ('inne');
-insert into OT_KatIstnienia(nazwa) values 
+insert into ot_kat_istnienia(nazwa) values 
 ('eksploatowany'),
 ('w budowie'),
 ('zniszczony'),
 ('nieczynny');
-insert into OT_RodzajRzeki(nazwa) values 
+insert into ot_rodzaj_rzeki(nazwa) values 
 ('rzeka'),
 ('strumień, potok lub struga');
-insert into OT_StatusEksploatacji(nazwa) values 
+insert into ot_status_eksploatacji(nazwa) values 
 ('nieżeglowny'),
 ('żeglowny');
-insert into OT_PrzebiegCieku(nazwa) values 
+insert into ot_przebieg_cieku(nazwa) values 
 ('ciek główny'),
 ('ramię boczne');
-insert into OT_RodzajRepGeom(nazwa) values 
+insert into ot_rodzaj_repo(nazwa) values 
 ('sztuczny łącznik');
-insert into OT_PolozenieCieku(nazwa) values 
+insert into ot_polozenie_cieku(nazwa) values 
 ('na powierzchni'),
 ('pod powierzchnią'),
 ('nad powierzchnią');
@@ -77,8 +77,8 @@ insert into OT_PolozenieCieku(nazwa) values
 -- 	poczatekWersjiObiektu timestamp not null,
 -- 	koniecWersjiObiektu timestamp,
 -- 	oznaczenieZmiany text not null,
--- 	zrodloDanychGeometrycznych integer references OT_ZrodloDanych(id) not null,
--- 	kategoriaIstnienia integer references OT_KatIstnienia(id),
+-- 	zrodloDanychGeometrycznych integer references ot_zrodlo_danych(id) not null,
+-- 	kategoriaIstnienia integer references ot_kat_istnienia(id),
 -- 	uwagi text,
 -- 	informacjaDodatkowa text,
 -- 	kodKarto10k text,
@@ -95,94 +95,94 @@ insert into OT_PolozenieCieku(nazwa) values
 -- 	poczatekWersjiObiektu timestamp not null,
 -- 	koniecWersjiObiektu timestamp,
 -- 	oznaczenieZmiany text not null,
--- 	zrodloDanychGeometrycznych integer references OT_ZrodloDanych(id) not null,
--- 	kategoriaIstnienia integer references OT_KatIstnienia(id),
+-- 	zrodloDanychGeometrycznych integer references ot_zrodlo_danych(id) not null,
+-- 	kategoriaIstnienia integer references ot_kat_istnienia(id),
 -- 	uwagi text,
 -- 	informacjaDodatkowa text,
 -- 	kodKarto10k text,
 -- 	kodKarto250k text,
 -- 	skrotKartograficzny text,
 -- 	identyfikatorPRNG text,
--- 	polozenie integer references OT_PolozenieCieku(id),
+-- 	polozenie integer references ot_polozenie_cieku(id),
 -- 	szerokosc decimal check (szerokosc >=0),
 -- 	nazwa text,
 -- 	geometria GEOMETRY(LINESTRING,2180) not null	
 -- );
 
-create table OT_SWRS_L(
+create table ot_swrs_l(
 	lokalnyId text not null primary key,
 	przestrzenNazw text not null,
 	wersja timestamp not null,
 	poczatekWersjiObiektu timestamp not null,
 	koniecWersjiObiektu timestamp,
 	oznaczenieZmiany text not null,
-	zrodloDanychGeometrycznych integer references OT_ZrodloDanych(id) not null,
-	kategoriaIstnienia integer references OT_KatIstnienia(id),
+	zrodloDanychGeometrycznych integer references ot_zrodlo_danych(id) not null,
+	kategoriaIstnienia integer references ot_kat_istnienia(id),
 	uwagi text,
 	informacjaDodatkowa text,
 	kodKarto10k text,
 	kodKarto250k text,
 	skrotKartograficzny text,
 	identyfikatorPRNG text,
-	polozenie integer references OT_PolozenieCieku(id),
+	polozenie integer references ot_polozenie_cieku(id),
 	szerokosc decimal check (szerokosc >=0),
 	nazwa text,
 	geometria GEOMETRY(LINESTRING,2180) not null,
-	rodzaj integer references OT_RodzajRzeki(id) not null,
-	statusEksploatacji integer references OT_StatusEksploatacji(id) not null,
-	przebieg integer references OT_PrzebiegCieku(id),
-	cechaGeometrii integer references OT_RodzajRepGeom(id),
+	rodzaj integer references ot_rodzaj_rzeki(id) not null,
+	statusEksploatacji integer references ot_status_eksploatacji(id) not null,
+	przebieg integer references ot_przebieg_cieku(id),
+	cechaGeometrii integer references ot_rodzaj_repo(id),
 	identyfikatorMPHP text
 );
 
-create table OT_SWKN_L(
+create table ot_swkn_l(
 	lokalnyId text not null primary key,
 	przestrzenNazw text not null,
 	wersja timestamp not null,
 	poczatekWersjiObiektu timestamp not null,
 	koniecWersjiObiektu timestamp,
 	oznaczenieZmiany text not null,
-	zrodloDanychGeometrycznych integer references OT_ZrodloDanych(id) not null,
-	kategoriaIstnienia integer references OT_KatIstnienia(id),
+	zrodloDanychGeometrycznych integer references ot_zrodlo_danych(id) not null,
+	kategoriaIstnienia integer references ot_kat_istnienia(id),
 	uwagi text,
 	informacjaDodatkowa text,
 	kodKarto10k text,
 	kodKarto250k text,
 	skrotKartograficzny text,
 	identyfikatorPRNG text,
-	polozenie integer references OT_PolozenieCieku(id),
+	polozenie integer references ot_polozenie_cieku(id),
 	szerokosc decimal check (szerokosc >=0),
 	nazwa text,
 	geometria GEOMETRY(LINESTRING,2180) not null,
-	statusEksploatacji integer references OT_StatusEksploatacji(id) not null,
-	cechaGeometrii integer references OT_RodzajRepGeom(id),
+	statusEksploatacji integer references ot_status_eksploatacji(id) not null,
+	cechaGeometrii integer references ot_rodzaj_repo(id),
 	identyfikatorMPHP text
 );
-create table OT_ReferencjaDoObiektu(
+create table ot_referencja_do_obiektu(
 	lokalnyId text primary key not null,
 	przestrzenNazw text not null
 );
 
-create table OT_SWRM_L(
+create table ot_swrm_l(
 	lokalnyId text not null primary key,
 	przestrzenNazw text not null,
 	wersja timestamp not null,
 	poczatekWersjiObiektu timestamp not null,
 	koniecWersjiObiektu timestamp,
 	oznaczenieZmiany text not null,
-	zrodloDanychGeometrycznych integer references OT_ZrodloDanych(id) not null,
-	kategoriaIstnienia integer references OT_KatIstnienia(id),
+	zrodloDanychGeometrycznych integer references ot_zrodlo_danych(id) not null,
+	kategoriaIstnienia integer references ot_kat_istnienia(id),
 	uwagi text,
 	informacjaDodatkowa text,
 	kodKarto10k text,
 	kodKarto250k text,
 	skrotKartograficzny text,
 	identyfikatorPRNG text,
-	polozenie integer references OT_PolozenieCieku(id),
+	polozenie integer references ot_polozenie_cieku(id),
 	szerokosc decimal check (szerokosc >=0),
 	nazwa text,
 	geometria GEOMETRY(LINESTRING,2180) not null,
-	OT_ReferencjaDoObiektu_id text references OT_ReferencjaDoObiektu(lokalnyId)
+	OT_ReferencjaDoObiektu_id text references ot_referencja_do_obiektu(lokalnyId)
 );
 
 --obiekt topograficzny indexes
@@ -200,44 +200,44 @@ create index idx_ot_siecwodna_kategoria on OT_SiecWodna(kategoriaIstnienia);
 create index idx_ot_siecwodna_polozenie on OT_SiecWodna(polozenie);
 
 --swrs_l indexes
---create index idx_ot_swrs_l_localnyid on OT_SWRS_L using btree(localnyId);
-create index idx_ot_swrs_l_zrodlo on OT_SWRS_L(zrodloDanychGeometrycznych);
-create index idx_ot_swrs_l_kategoria on OT_SWRS_L(kategoriaIstnienia);
-create index idx_ot_swrs_l_polozenie on OT_SWRS_L(polozenie);
-create index idx_ot_swrs_l_status on OT_SWRS_L(statusEksploatacji);
-create index idx_ot_swrs_l_przebieg on OT_SWRS_L(przebieg);
-create index idx_ot_swrs_l_cecha on OT_SWRS_L(cechaGeometrii);
-create index idx_ot_swrs_l_geom on OT_SWRS_L using gist(geometria);
+--create index idx_ot_swrs_l_localnyid on ot_swrs_l using btree(localnyId);
+create index idx_ot_swrs_l_zrodlo on ot_swrs_l(zrodloDanychGeometrycznych);
+create index idx_ot_swrs_l_kategoria on ot_swrs_l(kategoriaIstnienia);
+create index idx_ot_swrs_l_polozenie on ot_swrs_l(polozenie);
+create index idx_ot_swrs_l_status on ot_swrs_l(statusEksploatacji);
+create index idx_ot_swrs_l_przebieg on ot_swrs_l(przebieg);
+create index idx_ot_swrs_l_cecha on ot_swrs_l(cechaGeometrii);
+create index idx_ot_swrs_l_geom on ot_swrs_l using gist(geometria);
 
 --swkn_l indexes
---create index idx_ot_swkn_l_localnyid on OT_SWKN_L using btree(localnyId);
-create index idx_ot_swkn_l_zrodlo on OT_SWKN_L(zrodloDanychGeometrycznych);
-create index idx_ot_swkn_l_kategoria on OT_SWKN_L(kategoriaIstnienia);
-create index idx_ot_swkn_l_polozenie on OT_SWKN_L(polozenie);
-create index idx_ot_swkn_l_status on OT_SWKN_L(statusEksploatacji);
-create index idx_ot_swkn_l_cecha on OT_SWKN_L(cechaGeometrii);
-create index idx_ot_swkn_l_geom on OT_SWKN_L using gist(geometria);
+--create index idx_ot_swkn_l_localnyid on ot_swkn_l using btree(localnyId);
+create index idx_ot_swkn_l_zrodlo on ot_swkn_l(zrodloDanychGeometrycznych);
+create index idx_ot_swkn_l_kategoria on ot_swkn_l(kategoriaIstnienia);
+create index idx_ot_swkn_l_polozenie on ot_swkn_l(polozenie);
+create index idx_ot_swkn_l_status on ot_swkn_l(statusEksploatacji);
+create index idx_ot_swkn_l_cecha on ot_swkn_l(cechaGeometrii);
+create index idx_ot_swkn_l_geom on ot_swkn_l using gist(geometria);
 
 --swrm_l indexes
---create index idx_ot_swrm_l_localnyid on OT_SWRM_L using btree(localnyId);
-create index idx_ot_swrm_l_fk on OT_SWRM_L(OT_ReferencjaDoObiektu_id);
-create index idx_ot_swrm_l_zrodlo on OT_SWRM_L(zrodloDanychGeometrycznych);
-create index idx_ot_swrm_l_kategoria on OT_SWRM_L(kategoriaIstnienia);
-create index idx_ot_swrm_l_polozenie on OT_SWRM_L(polozenie);
-create index idx_ot_swrm_l_geom on OT_SWRM_L using gist(geometria);
+--create index idx_ot_swrm_l_localnyid on ot_swrm_l using btree(localnyId);
+create index idx_ot_swrm_l_fk on ot_swrm_l(OT_ReferencjaDoObiektu_id);
+create index idx_ot_swrm_l_zrodlo on ot_swrm_l(zrodloDanychGeometrycznych);
+create index idx_ot_swrm_l_kategoria on ot_swrm_l(kategoriaIstnienia);
+create index idx_ot_swrm_l_polozenie on ot_swrm_l(polozenie);
+create index idx_ot_swrm_l_geom on ot_swrm_l using gist(geometria);
 
 -- mv swrs
 create materialized view mv_ot_swrs_l as
 select rs.lokalnyId, rs.wersja, rs.geometria, rs.nazwa, rs.szerokosc, zd.nazwa as zrodloDanychGeometrycznych,
 kt.nazwa as kategoriaIstnienia, pc.nazwa as polozenie, se.nazwa as statusEksploatacji, rr.nazwa as rodzaj, pci.nazwa as przebieg, rrg.nazwa as cechaGeometrii
-from OT_SWRS_L as rs
-left join OT_ZrodloDanych zd on rs.zrodloDanychGeometrycznych = zd.id
-left join OT_KatIstnienia kt on rs.kategoriaIstnienia = kt.id
-left join OT_PolozenieCieku pc on rs.polozenie = pc.id
-left join OT_StatusEksploatacji se on rs.statusEksploatacji = se.id
-left join OT_RodzajRzeki rr on rs.rodzaj = rr.id
-left join OT_PrzebiegCieku pci on rs.przebieg = pci.id
-left join OT_RodzajRepGeom rrg on rs.cechaGeometrii = rrg.id
+from ot_swrs_l as rs
+left join ot_zrodlo_danych zd on rs.zrodloDanychGeometrycznych = zd.id
+left join ot_kat_istnienia kt on rs.kategoriaIstnienia = kt.id
+left join ot_polozenie_cieku pc on rs.polozenie = pc.id
+left join ot_status_eksploatacji se on rs.statusEksploatacji = se.id
+left join ot_rodzaj_rzeki rr on rs.rodzaj = rr.id
+left join ot_przebieg_cieku pci on rs.przebieg = pci.id
+left join ot_rodzaj_repo rrg on rs.cechaGeometrii = rrg.id
 with data;
 create unique index mv_ot_swrs_l_idx 
 on mv_ot_swrs_l using btree (lokalnyid);
@@ -249,12 +249,12 @@ on mv_ot_swrs_l using gist (geometria);
 create materialized view mv_ot_swkn_l as
 select kn.lokalnyId, kn.wersja, kn.geometria, kn.nazwa, kn.szerokosc, zd.nazwa as zrodloDanychGeometrycznych,
 kt.nazwa as kategoriaIstnienia, pc.nazwa as polozenie, se.nazwa as statusEksploatacji, rrg.nazwa as cechaGeometrii
-from OT_SWKN_L as kn 
-left join OT_ZrodloDanych zd on kn.zrodloDanychGeometrycznych = zd.id
-left join OT_KatIstnienia kt on kn.kategoriaIstnienia = kt.id
-left join OT_PolozenieCieku pc on kn.polozenie = pc.id
-left join OT_StatusEksploatacji se on kn.statusEksploatacji = se.id
-left join OT_RodzajRepGeom rrg on kn.cechaGeometrii = rrg.id
+from ot_swkn_l as kn 
+left join ot_zrodlo_danych zd on kn.zrodloDanychGeometrycznych = zd.id
+left join ot_kat_istnienia kt on kn.kategoriaIstnienia = kt.id
+left join ot_polozenie_cieku pc on kn.polozenie = pc.id
+left join ot_status_eksploatacji se on kn.statusEksploatacji = se.id
+left join ot_rodzaj_repo rrg on kn.cechaGeometrii = rrg.id
 with data;
 create unique index mv_ot_swkn_l_idx 
 on mv_ot_swkn_l using btree (lokalnyId);
@@ -265,10 +265,10 @@ on mv_ot_swkn_l using gist (geometria);
 create materialized view mv_ot_swrm_l as
 select rm.lokalnyId, rm.wersja, rm.geometria, rm.nazwa, rm.szerokosc, zd.nazwa as zrodloDanychGeometrycznych,
 kt.nazwa as kategoriaIstnienia, pc.nazwa as polozenie
-from OT_SWRM_L as rm
-left join OT_ZrodloDanych zd on rm.zrodloDanychGeometrycznych = zd.id
-left join OT_KatIstnienia kt on rm.kategoriaIstnienia = kt.id
-left join OT_PolozenieCieku pc on rm.polozenie = pc.id
+from ot_swrm_l as rm
+left join ot_zrodlo_danych zd on rm.zrodloDanychGeometrycznych = zd.id
+left join ot_kat_istnienia kt on rm.kategoriaIstnienia = kt.id
+left join ot_polozenie_cieku pc on rm.polozenie = pc.id
 with data;
 create unique index mv_ot_swrm_l_idx 
 on mv_ot_swrm_l using btree (lokalnyId);
@@ -280,9 +280,9 @@ create materialized view mv_ot_siecwodna as
 select sw.lokalnyId, sw.wersja, sw.geometria, sw.nazwa, sw.szerokosc, zd.nazwa as zrodloDanychGeometrycznych,
 kt.nazwa as kategoriaIstnienia, pc.nazwa as polozenie
 from OT_SiecWodna as sw
-left join OT_ZrodloDanych zd on sw.zrodloDanychGeometrycznych = zd.id
-left join OT_KatIstnienia kt on sw.kategoriaIstnienia = kt.id
-left join OT_PolozenieCieku pc on sw.polozenie = pc.id
+left join ot_zrodlo_danych zd on sw.zrodloDanychGeometrycznych = zd.id
+left join ot_kat_istnienia kt on sw.kategoriaIstnienia = kt.id
+left join ot_polozenie_cieku pc on sw.polozenie = pc.id
 with data;
 create unique index mv_ot_siecwodna_idx
 on mv_ot_siecwodna using btree (lokalnyId);
@@ -293,21 +293,21 @@ on mv_ot_siecwodna using gist (geometria);
 create materialized view mv_ot_obiekttopograficzny as
 select ot.lokalnyId, ot.wersja, zd.nazwa as zrodloDanychGeometrycznych, kt.nazwa as kategoriaIstnienia
 from OT_ObiektTopograficzny as ot
-left join OT_ZrodloDanych zd on ot.zrodloDanychGeometrycznych = zd.id
-left join OT_KatIstnienia kt on ot.kategoriaIstnienia = kt.id
+left join ot_zrodlo_danych zd on ot.zrodloDanychGeometrycznych = zd.id
+left join ot_kat_istnienia kt on ot.kategoriaIstnienia = kt.id
 with data;
 create unique index mv_ot_obiekttopograficzny_idx
 on mv_ot_obiekttopograficzny using btree (lokalnyId);
 
 -- alters for trigger
-alter table OT_SWRS_L add column autor text;
-alter table OT_SWRS_L add column dataDodania timestamp;
+alter table ot_swrs_l add column autor text;
+alter table ot_swrs_l add column dataDodania timestamp;
 
-alter table OT_SWKN_L add column autor text;
-alter table OT_SWKN_L add column dataDodania timestamp;
+alter table ot_swkn_l add column autor text;
+alter table ot_swkn_l add column dataDodania timestamp;
 
-alter table OT_SWRM_L add column autor text;
-alter table OT_SWRM_L add column dataDodania timestamp;
+alter table ot_swrm_l add column autor text;
+alter table ot_swrm_l add column dataDodania timestamp;
 
 -- trigger
 create function fun_insert_sw()
@@ -325,17 +325,17 @@ cost 100;
 --trigger for swrs
 create trigger trg_new_OT_SWRS_L
 before insert
-on OT_SWRS_L for each row execute procedure fun_insert_sw(); 
+on ot_swrs_l for each row execute procedure fun_insert_sw(); 
 
 --trigger for swkn
 create trigger trg_new_OT_SWKN_L
 before insert
-on OT_SWKN_L for each row execute procedure fun_insert_sw();
+on ot_swkn_l for each row execute procedure fun_insert_sw();
 
 --trigger for swrm
 create trigger trg_new_OT_SWRM_L
 before insert
-on OT_SWRM_L for each row execute procedure fun_insert_sw();
+on ot_swrm_l for each row execute procedure fun_insert_sw();
 
 
 --function zad3
@@ -404,20 +404,20 @@ begin
         COUNT(*),
         AVG(ST_Length(geometria))
       into rs_count, rs_avg
-      from OT_SWRS_L
+      from ot_swrs_l
       where ST_Within(ST_Centroid(geometria), r.geom);
       
       select
         COUNT(*),
         AVG(ST_Length(geometria))
       into kn_count, kn_avg
-      from OT_SWKN_L
+      from ot_swkn_l
       where ST_Within(ST_Centroid(geometria), r.geom);
       select
         COUNT(*),
         AVG(ST_Length(geometria))
       into rm_count, rm_avg
-      from OT_SWRM_L
+      from ot_swrm_l
       where ST_Within(ST_Centroid(geometria), r.geom);
 	  --inserting data only to the specific row
       update raster_cieki
